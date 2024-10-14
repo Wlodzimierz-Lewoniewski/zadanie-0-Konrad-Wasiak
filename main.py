@@ -1,26 +1,31 @@
 import re
 
-liczba_dokumentow = int(input("Ile dokumentów chcesz dodać? "))
+ile_sdan = int(input("Ile zdań? "))
 
-dokumenty = []
-for i in range(liczba_dokumentow):
-    dokumenty.append(input(f"Podaj treść dokumentu {i + 1}: "))
+zdania = []
+for j in range(ile_sdan):
+    zdania.append(input("Wprowadź zdanie " + str(j + 1) + ": "))
 
-liczba_slow = int(input("Ile słów chcesz dodać? "))
-szukane_slowa = []
+slowa_zdania = [[slowo.strip() for slowo in re.split(r'[,\.\?!: ]+', zdanie.lower()) if slowo] for zdanie in zdania]
 
-for i in range(liczba_slow):
-    zapytanie = input(f"Wpisz szukane słowo {i + 1}: ").strip().lower()
-    szukane_slowa.append(zapytanie)
+ile_slow = int(input("Ile słów do wyszukania? "))
+slowa_do_wyszukania = []
+for j in range(ile_slow):
+    slowa_do_wyszukania.append(input("Wprowadź słowo " + str(j + 1) + ": ").lower())
 
-for zapytanie in szukane_slowa:
-    czestosci = []
+output = {slowo: [0] * ile_sdan for slowo in slowa_do_wyszukania}
 
-    for index, dokument in enumerate(dokumenty):
-        oczyszczony_dokument = re.sub(r'[^\w\s]', '', dokument.strip().lower())
-        znalezione_slowa = re.findall(rf'\b{zapytanie}\b', oczyszczony_dokument)
-        czestosci.append((index, len(znalezione_slowa)))
+for i, slowa in enumerate(slowa_zdania):
+    for slowo in slowa:
+        if slowo in output:
+            output[slowo][i] += 1
 
-    czestosci.sort(key=lambda x: x[1], reverse=True)
-    posortowane_indeksy = [index for index, _ in czestosci]
-    print(posortowane_indeksy)
+sort_output = {}
+
+for slowo, wystapienia in output.items():
+    indeksy_zdan = [i for i in range(len(wystapienia)) if wystapienia[i] > 0]
+    indeksy_zdan.sort(key=lambda i: (-wystapienia[i], i))
+    sort_output[slowo] = indeksy_zdan
+
+for slowo, indeksy in sort_output.items():
+    print(f"Posortowane indeksy dla słowa '{slowo}': {indeksy}")
