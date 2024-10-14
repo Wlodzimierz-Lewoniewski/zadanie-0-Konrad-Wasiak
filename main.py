@@ -17,7 +17,7 @@ for zapytanie in szukane_slowa:
     czestosci = []
 
     for index, dokument in enumerate(dokumenty):
-        oczyszczony_dokument = dokument.strip().lower()
+        oczyszczony_dokument = re.sub(r'[^\w\s]', '', dokument.strip().lower())
         znalezione_slowa = re.findall(rf'\b{zapytanie}\b', oczyszczony_dokument)
         czestosci.append((index, len(znalezione_slowa)))
 
