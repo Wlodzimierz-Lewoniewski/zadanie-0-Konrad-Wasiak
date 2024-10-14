@@ -3,8 +3,8 @@ import re
 liczba_dokumentow = int(input("Ile dokumentów chcesz dodać? "))
 
 dokumenty = []
-for i in range(liczba_dokumentow):
-    dokumenty.append(input(f"Podaj treść dokumentu {i + 1}: "))
+for i in range(liczba_dokumentow-1):
+    dokumenty.append(input(f"Podaj treść dokumentu: "))
 
 liczba_slow = int(input("Ile słów chcesz dodać? "))
 szukane_slowa = []
