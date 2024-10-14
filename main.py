@@ -1,11 +1,12 @@
 import re
 
 liczba_dokumentow = int(input("Ile dokumentów chcesz dodać? "))
-liczba_slow = int(input("Ile słów chcesz dodać? "))
 
 dokumenty = []
 for i in range(liczba_dokumentow):
     dokumenty.append(input(f"Podaj treść dokumentu {i + 1}: "))
+
+liczba_slow = int(input("Ile słów chcesz dodać? "))
 
 for i in range(liczba_slow):
     czestosci = []
