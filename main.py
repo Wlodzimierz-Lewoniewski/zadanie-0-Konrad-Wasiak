@@ -7,11 +7,13 @@ for i in range(liczba_dokumentow):
     dokumenty.append(input(f"Podaj treść dokumentu {i + 1}: "))
 
 liczba_slow = int(input("Ile słów chcesz dodać? "))
+szukane_slowa = []
 
 for i in range(liczba_slow):
-    czestosci = []
     zapytanie = input(f"Wpisz szukane słowo {i + 1}: ").strip().lower()
-
+    szukane_slowa.append(zapytanie)
+for i in range(liczba_slow):
+    czestosci = []
     for index, dokument in enumerate(dokumenty):
         oczyszczony_dokument = dokument.strip().lower()
         znalezione_slowa = re.findall(rf'\b{zapytanie}\b', oczyszczony_dokument)
